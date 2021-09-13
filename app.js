@@ -18,14 +18,13 @@ function calculate(e){
   const a = parseInt(loanAmount.value); // Principle
   const y = parseInt(years.value); // Repayment duration in years
   const n = y * 12;
-  const i = parseInt(interestRate.value) / 100; // interest rate
   const r = interestRate.value / 100 / 12;
 
   monthlyPayments.value = calcMonthlyPayments(a, r, n);
   totalPay.value = calcTotalPayments(a, r, n);
   totalInterest.value = (totalPay.value - a).toFixed(2);
   displayLoading();
-  displayResults();
+  displayAndRemoveResults();
 }
 
 function calcMonthlyPayments(a, r, n) {
@@ -36,6 +35,7 @@ function calcTotalPayments(a, r, n) {
   return ((r*a*n)/(1-(1+r)**(-1*n))).toFixed(2);
 }
 
+// Displays the results Div
 function displayResults() {
   if(results.classList.contains('d-none')) {
     setTimeout(function() {
@@ -44,7 +44,8 @@ function displayResults() {
   }
 }
 
-function displayLoading() {
+// Displays the Loading gif for 4 seconds then remove it.
+function displayAndRemoveLoading() {
   if(loading.classList.contains('d-none')) {
     loading.classList.remove('d-none');
     setTimeout(function() {
