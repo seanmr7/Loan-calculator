@@ -1,6 +1,7 @@
 // Declare variables from DOM
 const form = document.querySelector('#load-form');
 const results = document.querySelector('#results');
+const loading = document.querySelector('#loading');
 const loanAmount = document.querySelector('#amount');
 const interestRate = document.querySelector('#interest');
 const years = document.querySelector('#years');
@@ -19,13 +20,11 @@ function calculate(e){
   const n = y * 12;
   const i = parseInt(interestRate.value) / 100; // interest rate
   const r = interestRate.value / 100 / 12;
-  console.log(typeof interestRate.value)
-  console.log(n)
-  console.log(r)
 
   monthlyPayments.value = calcMonthlyPayments(a, r, n);
   totalPay.value = calcTotalPayments(a, r, n);
   totalInterest.value = (totalPay.value - a).toFixed(2);
+  displayLoading();
   displayResults();
 }
 
@@ -39,6 +38,17 @@ function calcTotalPayments(a, r, n) {
 
 function displayResults() {
   if(results.classList.contains('d-none')) {
-    results.classList.remove('d-none');
+    setTimeout(function() {
+      results.classList.remove('d-none');
+    }, 4000);
+  }
+}
+
+function displayLoading() {
+  if(loading.classList.contains('d-none')) {
+    loading.classList.remove('d-none');
+    setTimeout(function() {
+      loading.style.display = 'none';
+    }, 4000);
   }
 }
