@@ -1,5 +1,6 @@
 // Declare variables from DOM
 const form = document.querySelector('#load-form');
+const results = document.querySelector('#results');
 const loanAmount = document.querySelector('#amount');
 const interestRate = document.querySelector('#interest');
 const years = document.querySelector('#years');
@@ -22,8 +23,22 @@ function calculate(e){
   console.log(n)
   console.log(r)
 
-  monthlyPayments.value = (a/((((1 + r)**n)-1)/(r*(1 + r)**n))).toFixed(2);
-  totalPay.value = ((r*a*n)/(1-(1+r)**(-1*n))).toFixed(2);
+  monthlyPayments.value = calcMonthlyPayments(a, r, n);
+  totalPay.value = calcTotalPayments(a, r, n);
   totalInterest.value = (totalPay.value - a).toFixed(2);
+  displayResults();
+}
 
+function calcMonthlyPayments(a, r, n) {
+  return (a/((((1 + r)**n)-1)/(r*(1 + r)**n))).toFixed(2);
+}
+
+function calcTotalPayments(a, r, n) {
+  return ((r*a*n)/(1-(1+r)**(-1*n))).toFixed(2);
+}
+
+function displayResults() {
+  if(results.classList.contains('d-none')) {
+    results.classList.remove('d-none');
+  }
 }
