@@ -23,8 +23,9 @@ function calculate(e){
   monthlyPayments.value = calcMonthlyPayments(a, r, n);
   totalPay.value = calcTotalPayments(a, r, n);
   totalInterest.value = (totalPay.value - a).toFixed(2);
-  displayLoading();
-  displayAndRemoveResults();
+
+  displayAndRemoveLoading();
+  displayResults();
 }
 
 function calcMonthlyPayments(a, r, n) {
