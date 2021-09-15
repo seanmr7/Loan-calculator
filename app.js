@@ -1,5 +1,5 @@
 // Declare variables from DOM
-const form = document.querySelector('#load-form');
+const form = document.querySelector('#loan-form');
 const results = document.querySelector('#results');
 const loading = document.querySelector('#loading');
 const loanAmount = document.querySelector('#amount');
