@@ -16,6 +16,7 @@ form.addEventListener('submit', calculate);
 // Calculate function
 function calculate(e){
   e.preventDefault();
+  hideResults();
   const a = parseFloat(loanAmount.value); // Principle
   const y = parseFloat(years.value); // Repayment duration in years
   const n = y * 12;
@@ -65,7 +66,14 @@ function displayResults() {
   if(results.classList.contains('d-none')) {
     setTimeout(function() {
       results.classList.remove('d-none');
-    }, 4000);
+    }, 2000);
+  }
+}
+
+// Hide results Div
+function hideResults() {
+  if(!results.classList.contains('d-none')) {
+    results.classList.add('d-none');
   }
 }
 
@@ -74,7 +82,7 @@ function displayAndRemoveLoading() {
   if(loading.classList.contains('d-none')) {
     loading.classList.remove('d-none');
     setTimeout(function() {
-      loading.style.display = 'none';
-    }, 4000);
+      loading.classList.add('d-none');
+    }, 2000);
   }
 }
