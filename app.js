@@ -1,4 +1,5 @@
 // Declare variables from DOM
+const card = document.querySelector('.card');
 const form = document.querySelector('#loan-form');
 const results = document.querySelector('#results');
 const loading = document.querySelector('#loading');
@@ -15,17 +16,20 @@ form.addEventListener('submit', calculate);
 // Calculate function
 function calculate(e){
   e.preventDefault();
-  const a = parseInt(loanAmount.value); // Principle
-  const y = parseInt(years.value); // Repayment duration in years
+  const a = parseFloat(loanAmount.value); // Principle
+  const y = parseFloat(years.value); // Repayment duration in years
   const n = y * 12;
   const r = interestRate.value / 100 / 12;
 
+  if(isFinite(calcMonthlyPayments(a, r, n))) {
   monthlyPayments.value = calcMonthlyPayments(a, r, n);
   totalPay.value = calcTotalPayments(a, r, n);
   totalInterest.value = (totalPay.value - a).toFixed(2);
-
   displayAndRemoveLoading();
   displayResults();
+  } else {
+    showError('Please check fields')
+  }
 }
 
 function calcMonthlyPayments(a, r, n) {
@@ -34,6 +38,26 @@ function calcMonthlyPayments(a, r, n) {
 
 function calcTotalPayments(a, r, n) {
   return ((r*a*n)/(1-(1+r)**(-1*n))).toFixed(2);
+}
+
+// Show error function
+function showError(error) {
+  // Create div
+  errorDiv = document.createElement('div');
+  errorDiv.innerText = error;
+
+  // Add classes
+  errorDiv.classList.add('alert', 'alert-danger');
+
+  // Insert into DOM
+  card.appendChild(errorDiv);
+
+  // Clear error after 3 seconds
+  setTimeout(clearError, 3000);
+}
+
+function clearError() {
+  document.querySelector('.alert').remove();
 }
 
 // Displays the results Div
