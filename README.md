@@ -1,0 +1,1 @@
+This is a very simple loan repayment calculator. The primary reason I did this project was to practice DOM manipulation.
